@@ -162,3 +162,15 @@ o
     });
 </script>
 ```
+
+## SELECTORES JQUERY
+
+### Selectores jQuery más usados
+
+- `:eq(index)(eq() actual)`
+- `:has("")`
+- `:contains("")`
+- `:even / :odd`
+- `:input(inputs, textarea, select, buttons)`
+- `:gt(index) / :lt(index)`
+- `:first / :last (.first(), .last() actual)`
