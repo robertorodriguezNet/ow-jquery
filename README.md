@@ -163,14 +163,128 @@ o
 </script>
 ```
 
-## SELECTORES JQUERY
-
-### Selectores jQuery más usados
+### SELECTORES JQUERY
 
 - `:eq(index)(eq() actual)`
 - `:has("")`
 - `:contains("")`
 - `:even / :odd`
-- `:input(inputs, textarea, select, buttons)`
-- `:gt(index) / :lt(index)`
-- `:first / :last (.first(), .last() actual)`
+- `:input` (inputs, textarea, select, buttons)
+- `:gt(index) / :lt(index)` mayor/menor que
+- `:first / :last` (.first(), .last() actual)
+- `:button, :file, :radio, :reset`
+- `:submit, :text, :checkbox`
+- `:password, :image`
+- `:header` (hx)
+- `:hidden, :visible`
+- `:parent` selecciona aquello que tiene algo dentro
+
+```js
+<script>
+
+    $(function(){
+                
+        $(":password");                  // seleccionar passwords
+        $("text");             // seleccionar inputs de tipo text
+        $(":h1");                     // seleccionar cabeceras h1
+        $(":header");           // selecciona todas las cabeceras
+
+        $("img:visible").hide(); // ocultar las imágenes visibles
+        $("img:hidden").show();   // mostrar las imágenes ocultas
+
+    });
+</script>
+```
+
+## Each() and $(this)
+
+![Each and $(this)](img/each-this.png)
+
+### Recorrer una lista
+
+```js
+<script>
+
+    $function(){
+
+        // Muestra el texto de cada elemento y lo cambia posteriormente
+        $("li")each(function(index)){
+            console.log("El elemento " + index + " contiene " + $(this).text());
+            $(this).text("HOLA");
+        }
+
+    }
+
+</script>
+```
+
+## CSS
+
+```js
+<script>
+
+    $function(){
+
+        let valor = $("algun-selector").css("propiedad");
+        $("algun-selector").css("propiedad","valor");
+
+        // Establecer el valor de una propiedad para todos los elementos 
+        // (una función para cada elemento devuelto por el selector).
+        // En index está la posición en la lista de elementos devuelta por
+        // el selector,y en value, el antiguo valor.
+        $("algun-selector").css("propiedad",function(index,value){
+            // $(this)
+        });
+
+        let color = $("li").css("color");  // Se devuelve el primer elemento encontrado
+        $("img").css("width","+=50");
+
+        // OBTENER el valor de varias propiedades DEL PRIMER ELEMENTO
+        // que se obtiene del selector (array)
+        let props = $("algun-selector").css([
+            "propiedad1",
+            "propiedad2",
+            "propiedadn"
+        ]);
+
+        let colores = $("li").css(["color","background-color"]);
+
+        // ESTABLECER el valor de varias propiedades para los
+        // elementos seleccionados.
+        // Entre las llaves se escribe el CSS con su propia sintaxis.
+        $("algun-selector").css({
+            prop1 : valor, // o expresión
+            prop2 : valor, // o expresión
+            propn : valor, // o expresión
+        });
+
+        $("li").css({
+            color: #fff,
+            background-color: #000;
+        });
+
+
+    }
+
+</script>
+```
+
+### Funciones CSS adicionales
+
+```js
+<script>
+    $function(){
+
+        // Getter y setter para algunos valores
+        // $("...").width(); $("...").width(value);
+        // $("...").height(); / $("...").height(value);
+        $("img").eq(4).width("20px");
+        $("img").width("20px");
+
+        let size = $("img").eq(0).height();
+
+
+
+    }
+</script>
+```
