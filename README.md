@@ -132,16 +132,32 @@ o
 </script>
 ```
 
-### PSEUDO-ELEMENTOS
+### SELECTORES CSS
 
 ```js
 <script>
 
     $(function(){
         
-        // ::after
-        // ::before
-        // ::first-letter // ::first-line
+        // seleccionar la primera columna del cuerpo de una tabla
+        $("tbody tr td:first-child");
+        $("tbody tr rd:fist-of-type");
+
+        // El primer elemento de una lista
+        $(".iconized li:nth-child(1)");
+        $(".iconized li").eq(0);
+
+        // El campo de un formulario anterior al submit
+        $("input:last-of-type");
+
+        // El último elemnento de una lista poner en rojo
+        $(".iconized li-last-cild").css("color","red");
+
+        // La última imagen de una página
+        $("body img:last-of-type");
+
+        // La primera letra de un hx
+        $("h1:first-letter").css("transform","upper");
 
     });
 </script>
