@@ -205,7 +205,7 @@ o
 ```js
 <script>
 
-    $function(){
+    $(function(){
 
         // Muestra el texto de cada elemento y lo cambia posteriormente
         $("li")each(function(index)){
@@ -213,7 +213,7 @@ o
             $(this).text("HOLA");
         }
 
-    }
+    });
 
 </script>
 ```
@@ -223,7 +223,7 @@ o
 ```js
 <script>
 
-    $function(){
+    $(function(){
 
         let valor = $("algun-selector").css("propiedad");
         $("algun-selector").css("propiedad","valor");
@@ -264,7 +264,7 @@ o
         });
 
 
-    }
+    });
 
 </script>
 ```
@@ -273,7 +273,7 @@ o
 
 ```js
 <script>
-    $function(){
+    $(function(){
 
         // Getter y setter para algunos valores
         // $("...").width(); $("...").width(value);
@@ -285,6 +285,81 @@ o
 
 
 
-    }
+    });
+</script>
+```
+
+### Clases CSS
+
+Para los elementos seleccionados:\
+`.addClass()`\
+`.removeClass()`\
+`.toggleClass()` pone o quita la clase dependiendo de si la tiene o no.\
+`.hasClass()`
+
+```js
+<script>
+    $(function(){
+
+        // Añadir varias clases
+        $("button").addClass("btn btn-error");
+
+        // Le pasamos una función que se aplica a cada elemento (con una
+        // posición) y cuyo valor srá el nombre de la clase que se añade ($(this)).
+        // Devuelve el nombre de la clase que se quiere añadir.
+        $("section").addClass(funtion(index){
+            return "section-" + index;
+        });
+
+        let has = $("tbody tr:first td").hasClass("una-clase");
+
+    })
+</script>
+```
+
+### Atributos CSS
+
+- **Atributo**: nos da información adicional sobre un elemento HTML, con la forma nombre="valor".
+- **Propiedad**: es información de la instancia concreta de una etiqueta, dentro de un DOM determinado.
+
+!["ropiedades y atributos](/img/prop-vs-attr.png)
+
+#### Funciones para trabajar con atributos y propiedades
+
+- No usar versiones anteriores a jQuery 1.6.
+- Usar siempre que sea posible las funciones que hacen referencia a las propiedades.
+- Usar .attr() únicamente cuando sean atributos *_custom*, es decir que no van a tener propiedades asociadas.
+
+`.attr()`\
+`.removeAttr()`\
+`.prop()`\
+`.removeProp()`
+
+```js
+<script>
+    $(funtion(){
+        // Obtener el valor del un atributo del primer elemento
+        // let valor = $("algun-selector").attr("algun-atributo");
+        let url = $("a").attr("href");
+
+        // Fijar el valor de un atributo concreto en todos los
+        // elementos seleccionados
+        // $("algun-selector").attr("algun-atributo","nuevo-valor");
+        $("a").attr("targe","_blank");
+
+        // Fijar el valor de varios atributos a la vez en todos
+        // los elementos seleccionados
+        // $("algun-selector").attr({
+        //     atr1 : value1,
+        //     atr2 : value2,
+
+        //     atrn : valuen,
+        // });
+        $("#miprofile").attr({
+            alt   : "Foto de mi cara",
+            title : "Foto hecha por mí"
+        });
+
+    });
 </script>
 ```
