@@ -363,3 +363,40 @@ Para los elementos seleccionados:\
     });
 </script>
 ```
+
+### Modificar el DOM
+
+- `.empty() / .html() / .text()`
+- `.append() / .preprend() / .appendTo() / .prependTo()` añaden nuevos elementos HTML, al principio y al final.
+- `.addClass() / .removeClass()`
+- `.wrap() / .unwrap() / .wrapAll() / .wrapInner()`
+- `.val() ->` Sí ... aquí
+
+```js
+<script>
+    $(function(){
+
+        // Borra todos los hijos (y su contenido) de los elementos seleccionados
+        $(".article li:nth-child(3)").empty();
+
+        // OBTIENE el HTML del primer elemento de los seleccionados.
+        // Es decir, TODO lo que va entre la apertura y cierre del elemeto.
+        let content = $("li").html();
+
+        // SUSTITUYE el contenido de todos los elementos seleccionados
+        $("ul").html("<li>UNO</li>");
+
+        // Posición y antiguo texto si se pasa una función
+        $("ul").html(function(index,oldtext){
+            // Añadir un elemento al contenido
+            $(this).html(oldtext + "<li>Nuevo elemento</li>");
+        });
+
+        // .text() y .html() son parecidos: .text() obvia las etiquetas.
+
+        $("ul").append("<li>Nuevo elemento</li>");
+        $("<li>Nuevo elemento</li>").appendTo("ul");
+
+    });
+</script>
+```
