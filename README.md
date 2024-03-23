@@ -185,7 +185,7 @@ o
     $(function(){
                 
         $(":password");                  // seleccionar passwords
-        $("text");             // seleccionar inputs de tipo text
+        $(":text");            // seleccionar inputs de tipo text
         $(":h1");                     // seleccionar cabeceras h1
         $(":header");           // selecciona todas las cabeceras
 
@@ -369,8 +369,8 @@ Para los elementos seleccionados:\
 - `.empty() / .html() / .text()`
 - `.append() / .preprend() / .appendTo() / .prependTo()` añaden nuevos elementos HTML, al principio y al final.
 - `.addClass() / .removeClass()`
-- `.wrap() / .unwrap() / .wrapAll() / .wrapInner()`
-- `.val() ->` Sí ... aquí
+- `.wrap() / .unwrap() / .wrapAll() / .wrapInner()` envuelve el contenido entre etiquetas
+- `.val() ->` obtener y fijar campos de formulario
 
 ```js
 <script>
@@ -397,6 +397,123 @@ Para los elementos seleccionados:\
         $("ul").append("<li>Nuevo elemento</li>");
         $("<li>Nuevo elemento</li>").appendTo("ul");
 
+        // Envolver el contenido entre etiquetas
+        $("article").wrap("<div class="article_outer"></div>");
+
+        let valor = $("algun-selector").val();
+        $("algun-selector").val("valor");
+        $("input[type=text ]").val(function(index,valor){
+            $(this)val(valor + "->" + index);
+        });
+        let nombre = $("input").eq(0).val(function(index,valor){
+            return valor + "...";
+        });
+
+    });
+</script>
+```
+
+## EVENTOS
+
+- Eventos de navegador
+- Eventos de usuario
+
+|              | Eventos      |               |               |
+|--------------|--------------|---------------|---------------|
+| .focusout()  | .hover()     | .keypress()   | .keydown()    |
+| .keyup()     | .mousedown() | .mouseenter() | .mouseleave() |
+| .mousemove() | .mouseout()  | .mouseover()  | .resize()     |
+| .scroll()    | .select()    | .submit()     |               |  
+
+### Objeto Event
+
+- `e.delegatedTarget` si se ha producido asocición delegada.
+- `e.currentTarget` objeto que lanza el evento.
+- `e.pageX` posición X en la que se ha producido el evento.
+- `e.pageY` posición Y en la que se ha producido el evento.
+- `e.preventDefault()` evita el comportamiento por defecto.
+- `e.stopPropagation()` detiene la propagación del evento.
+- `e.Target` donde se ha producido el evento.
+- `e.timeStamp` momento en el que se ha producido.
+- `e.type`
+- `e.which` tecla presionada o clic del ratón.
+- `e.metaKey` teclas especiales (por ejemplo en Mac).
+
+![Event bubbling](/img/event-bubbling.png)
+
+En la imagen:
+
+- `li` y `body` tienen un `handle`.
+- El evento lo captura `li` y se propaga hacia arriba.
+- El evento es ejecutado por cada elemento que tiene su `handle`.
+
+```js
+<script>
+    $(function(){
+
+        let count = 0;
+
+        // Asociación directa
+        $("li#ejemplo").on("click mouseenter",function(event){
+            $(this).html("Contador: " + (++count);)
+        });
+
+        // Asociación delegada
+        // Eventos, elemento hijo al que se aplica el evento
+        $("ul").on("click mouseenter","li#ejemplo",function(event){
+            $(this).html("Contador: " + (++conut));
+        })
+
+        // Funciones con nombre, solo asociación directa
+        $("li#ejemplo").click(function(event){
+            $(this).html("Contador: " + (++count));
+        });
+
+    })
+</script>
+```
+
+## Control de propagación de eventos
+
+- `event.preventDefault()` evita el comportamiento por defecto.
+- `event.stopPropagation()` para la propagación hacia arriba.
+- `event.stopImmediatePropagation`  para el resto de los handlers y la propagación hacia arriba.\
+  Por ej.: se captura un `mouseover` y entonces se deshabiliata el `mouseclic`.
+
+### Disparar eventos
+
+```js
+<script>
+    $(function(){
+
+        // HAY PROPAGACIÓN
+        // Simular que se ha producido un evento en los elementos del selector
+        $("alugun-selector").trigger("algun-evento");
+
+        // El argumento puede ser un Evento
+        $("algun-selector").trigger(event);
+
+        // NO HAY PROPAGACIÓN
+        // El evento debe tener handler asociado
+        // Se ejecutan todos los handlers asociados al evento
+        $("algun-selector").triggerHandler("algun-evento");
+        
+        // Se ejecutan los handlers asociados a un objeto del tipo evento
+        $("algun-selector").triggerHandler(event);
+    });
+</script>
+```
+
+### Eventos propios
+
+```js
+<script>
+    $(funtion(){
+        $("algun-selector").on("mi_evento"...);
+
+        // Usado como trigger
+        $("algun-selector").trigger("mi_evento");
+        $("algun-selector").triggerHandler("mi_evento");
     });
 </script>
 ```
