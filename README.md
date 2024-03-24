@@ -517,3 +517,103 @@ En la imagen:
     });
 </script>
 ```
+
+## AJAX
+
+## Algunas funcione AJAX y su equivalencia en jQuery
+
+- `$.ajax()` / `$jQuery.ajax()`
+- `$.ajaxgetJSON()` / `$jQuery.getJSON()`
+- `$.ajaxSetup()` / `$jQuery.$ajaxSetutp()`
+- `$.ajaxget()` / `$jQuery.ajaxget()`
+- `$.ajaxpost()` / `$jQuery.post()`
+
+```js
+<script>
+    $(function(){
+
+        // settings (opcional)
+        // {
+        //      async: true; --> especifica que la carga sea asíncrona.
+        //      contentType: 'application/x-www-urlencoded; charset=UTF-8';
+        //      data: ... ; --> argumentos para petición / url qery / json.
+        //      dataType: "xml" / "html" / "json";
+        //      header: ... ; --> argumentos de la cabecera / json.
+        //      method: "get" | "post";
+        //      statusCode: lista de funciones dependiendo del estado (objeto json).
+        //      success: function(data, textStatus, jqXHR); --> en caso éxito.
+        //      error: function(jqXHR, textStatus, error); --> en caso de error.
+        //      complete: function(jqXHR)
+        // }
+
+        // Estructura general simplificada.
+        // Se pasa la url y un json con todas las funciones necesarias.
+        
+        // Al hacer click en un componente de la clase users
+        $(".users").on("click", function(event){
+
+            // Vaciar la lista de usuarios
+            $("ul.lista_usuarios").empty(); 
+
+            // Iniciar AJAX
+            $.ajax("https://jsonplaceholder.typicode.com/users",{
+                dataType: 'json',
+                success: function (data){  // data contiene todos los datos devueltos
+                    data.forEach(function(valor){
+                        $("ul.lista_usuarios")
+                            .append("<li><span class="oculto">" + 
+                                valor.id + "</span>" + valor.name + "</li>")
+                    });
+                },
+                error: function(jqHXR, textStatus, error){
+                    alert("Error: " + textStatus + " " + error);
+                }
+
+            }); // Fin de iniciar AJAX
+        });  // Fin del evento onClick
+    });
+</script>
+```
+
+## jQuery UI
+
+### Instalación
+
+- Instalación de la librería por defecto (local|remota).
+  - local
+    - Descargar jQuery UI desde [https://jqueryui.com](https://jqueryui.com)
+    - Enlazar tanto los estilos como el *js* descargado (quedarse con los **min**).
+  - remota
+    - Copiar CDN: [https://developers.google.com/speed/libraries?hl=es-419#jquery-ui](https://developers.google.com/speed/libraries?hl=es-419#jquery-ui)
+- Instalación personalizada.
+  - Desde la página de descarga, seleccinar **Custom download**.
+- Temas de jQuery.
+  - En la página de **jqueryui** ir a la pestaña **Themes** [https://jqueryui.com/themeroller/](https://jqueryui.com/themeroller/) y descargar el tema elegido.
+
+### Componentes
+
+Son elelmentos que son comunes y constan de estructura, estilos y comportamiento.\
+Están documentados y preparados para ser reutilizados.\
+Son *plantillas* de elementos web.
+
+| Algunos   | Componentes    |         |               |              |
+|-----------|----------------|---------|---------------|--------------|
+| Acordeón  | Autocompletado | Botones | Checkboxradio | Controlgroup |
+| DatePicker| Dialog         | menu    | ProgressBar   | SelectMenu   |
+| Slider    | Spinner        | Tabs    | ToolTips      |              |
+
+### Efectos
+
+| Algunas        | Funciones      |           |                |
+|----------------|----------------|-----------|----------------|
+| .addClass      | .removeClass() | .hide()   | .toggleClass() |
+| Color anination| .show()        | .toggle() | .easing()      |
+| .effect        | .switchClass() |           |                |
+
+### Interacciones
+
+- **Draggable**: mover elementos.
+- **Dropable**: soltar los elementos.
+- **Resizable**: redimensionar los elementos.
+- **Selectable**: seleccionar uno o varios elementos.
+- **Sortable**: reordenar los elementos.
